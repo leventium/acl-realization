@@ -6,8 +6,10 @@
 
 template<typename Entity, typename Resource, typename AccessMode>
 class ACL {
-    std::unordered_map<Entity,
-                       std::unordered_map<Resource, AccessMode>> table {};
+    using resource_map = std::unordered_map<Resource, AccessMode>;
+    using entity_map = std::unordered_map<Entity, resource_map>;
+
+    entity_map table {};
 
 public:
     void SetAccessMode(
@@ -18,7 +20,7 @@ public:
             entity->second.insert_or_assign(res, mode);
             return;
         }
-        std::unordered_map<Resource, AccessMode> rec;
+        resource_map rec;
         rec.insert({res, mode});
         table.insert({ent, rec});
     };
