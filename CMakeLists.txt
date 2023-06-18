@@ -3,4 +3,4 @@ project(ACL)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(ACL main.cpp ACL.h)
+add_executable(ACL_test test.cpp acl.h doctest.h)

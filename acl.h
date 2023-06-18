@@ -10,17 +10,10 @@ class ACL {
                        std::unordered_map<Resource, AccessMode>> table {};
 
 public:
-//    void AddEntity(Entity ent, Resource res, AccessMode mode) {
-//        if (auto entity = table.find(ent); entity != table.end()) {
-//            entity->second.insert_or_assign(res, mode);
-//            return;
-//        }
-//        std::unordered_map<Resource, AccessMode> rec;
-//        rec.insert({res, mode});
-//        table.insert({ent, rec});
-//    };
-
-    void SetAccessMode(Entity ent, Resource res, AccessMode mode) {
+    void SetAccessMode(
+            const Entity& ent,
+            const Resource& res,
+            const AccessMode& mode) {
         if (auto entity = table.find(ent); entity != table.end()) {
             entity->second.insert_or_assign(res, mode);
             return;
@@ -30,11 +23,11 @@ public:
         table.insert({ent, rec});
     };
 
-    void DelEntity(Entity ent) {
+    void DelEntity(const Entity& ent) {
         table.erase(ent);
     };
 
-    AccessMode GetAccessMode(Entity ent, Resource res) {
+    AccessMode GetAccessMode(const Entity& ent, const Resource& res) {
         if (auto entity = table.find(ent); entity != table.end())
             if (auto resource = entity->second.find(res);
                     resource != entity->second.end())
